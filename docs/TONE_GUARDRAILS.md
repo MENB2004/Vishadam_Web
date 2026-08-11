@@ -42,7 +42,7 @@ jump off, hang myself, slit, worthless to everyone
 > "Hey, we hear you. This isn't something we'll joke about. You're not alone, and it's okay to ask for help."
 >
 > **Helplines:**
-> - **iCall:** 9152987821
+> - **iCall:** +91 8921423477
 > - **Vandrevala Foundation:** 1860-2662-345
 > - **KIRAN (Govt. of India):** 1800-599-0019 (toll-free, 24/7)
 

@@ -38,7 +38,7 @@ const HELPLINES = [
   {
     name: 'iCall',
     number: '+91 91529 87821',
-    tel: 'tel:+919152987821',
+    tel: 'tel:+91+91 8921423477',
     note: 'Mon–Sat, 10am–8pm',
   },
   {
@@ -84,7 +84,7 @@ export default function Result() {
 
   // Warm up the voice list (Chrome loads voices asynchronously)
   useEffect(() => {
-    if (TTS_SUPPORTED) loadVoices(() => {});
+    if (TTS_SUPPORTED) loadVoices(() => { });
   }, []);
 
   // Cancel any speech when leaving the page

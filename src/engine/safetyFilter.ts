@@ -28,14 +28,14 @@ export interface SafetyResult {
 const FALLBACK_EN = `Hey, we hear you. This isn't something we'll joke about. You're not alone, and it's okay to ask for help.
 
 📞 Helplines:
-• iCall: 9152987821
+• iCall: +91 8921423477
 • Vandrevala Foundation: 1860-2662-345
 • KIRAN (Govt. of India): 1800-599-0019 (toll-free, 24/7)`;
 
 const FALLBACK_ML = `ഹേയ്, ഞങ്ങൾ കേൾക്കുന്നു. ഇതിനെക്കുറിച്ച് ഞങ്ങൾ തമാശ പറയില്ല. നിങ്ങൾ ഒറ്റയ്ക്കല്ല, സഹായം ചോദിക്കുന്നത് ശരിയാണ്.
 
 📞 ഹെൽപ്‌ലൈനുകൾ:
-• iCall: 9152987821
+• iCall: +91 8921423477
 • വന്ദ്രേവാല ഫൗണ്ടേഷൻ: 1860-2662-345
 • KIRAN (ഗവ. ഓഫ് ഇന്ത്യ): 1800-599-0019 (ടോൾ-ഫ്രീ, 24/7)`;
 
