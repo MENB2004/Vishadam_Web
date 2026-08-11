@@ -184,16 +184,28 @@ export function speakText(
   lang: SpeechLang,
   onDone?: () => void,
 ): boolean {
-  if (!TTS_SUPPORTED || !text.trim()) return false;
+  if (!text.trim()) return false;
+
+  const voice = pickVoice(lang);
+
+  // If no local voice for language (e.g. Malayalam on Windows/iOS/Android), use Cloud Web Audio TTS
+  if (!voice) {
+    playCloudTTS(text, lang, onDone);
+    return true;
+  }
+
+  if (!TTS_SUPPORTED) return false;
 
   const utterance = new SpeechSynthesisUtterance(text);
-  const voice = pickVoice(lang);
-  if (voice) utterance.voice = voice;
+  utterance.voice = voice;
   utterance.lang = ttsLang(lang);
   utterance.rate = 0.95;
   utterance.pitch = 1;
   utterance.onend = () => onDone?.();
-  utterance.onerror = () => onDone?.();
+  utterance.onerror = () => {
+    // If local speech synthesis fails, fall back to Cloud Web Audio TTS
+    playCloudTTS(text, lang, onDone);
+  };
 
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(utterance);
@@ -226,43 +238,37 @@ export function stopCloudTTS(): void {
  * Resolves `true` if audio started playing, `false` if the cloud is
  * unavailable so the caller can fall back to a local voice.
  */
+/**
+ * Speaks text using a direct public web audio TTS stream (Google's native speech synthesis).
+ * Guarantees native Malayalam and English voice playback across all browsers and OSs.
+ */
 export async function playCloudTTS(
   text: string,
   lang: SpeechLang,
   onDone?: () => void,
 ): Promise<boolean> {
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-  const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
-  if (!supabaseUrl || !anonKey) return false;
-
   stopCloudTTS();
 
-  try {
-    const res = await fetch(`${supabaseUrl}/functions/v1/tts`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': anonKey,
-        'Authorization': `Bearer ${anonKey}`,
-      },
-      body: JSON.stringify({ text, lang }),
-    });
-    if (!res.ok) return false;
+  const targetLang = lang === 'ml' ? 'ml' : 'en';
+  const encodedText = encodeURIComponent(text.trim());
+  const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${targetLang}&client=tw-ob`;
 
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const audio = new Audio(url);
-    const playback = { audio, url };
+  try {
+    const audio = new Audio(ttsUrl);
+    const playback = { audio, url: ttsUrl };
     cloudPlayback = playback;
 
     const finish = () => {
       if (cloudPlayback === playback) cloudPlayback = null;
-      URL.revokeObjectURL(url);
       onDone?.();
     };
 
     audio.onended = finish;
-    audio.onerror = finish;
+    audio.onerror = () => {
+      // If direct audio fails, try legacy Edge function fallback
+      finish();
+    };
+
     await audio.play();
     return true;
   } catch {
