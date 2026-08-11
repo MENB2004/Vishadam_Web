@@ -4,6 +4,8 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { DemotivationResult } from '../engine';
 import { supabase } from '../lib/supabaseClient';
+import { roastShareUrl, type RoastSource } from '../lib/roastClient';
+import RoastCard from '../components/RoastCard';
 import {
   TTS_SUPPORTED,
   speakText,
@@ -21,11 +23,14 @@ import VoicePicker from '../components/VoicePicker';
 const BUCKET_LABELS: Record<string, string> = {
   'failed-exam': '📝 Failed Exam',
   'breakup': '💔 Breakup',
+  'job-hunt': '🔍 Job Hunt',
   'work-stress': '💼 Work Stress',
   'nothing-works': '🌀 Nothing Works',
   'loneliness': '🫥 Loneliness',
   'family-pressure': '👨‍👩‍👧 Family Pressure',
+  'health-fitness': '💪 Health & Fitness',
   'money': '💸 Money',
+  'social-media': '📱 Social Media',
   'general': '☠️ General',
 };
 
@@ -53,6 +58,7 @@ const HELPLINES = [
 interface ResultState {
   result: DemotivationResult;
   input?: string;
+  source?: RoastSource;
 }
 
 const VOTE_FEEDBACK: Record<'up' | 'down', string> = {
@@ -66,6 +72,7 @@ export default function Result() {
   const state = location.state as ResultState | null;
   const result = state?.result ?? null;
   const input = state?.input ?? '';
+  const source = state?.source ?? null;
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [voted, setVoted] = useState<'up' | 'down' | null>(null);
   const [showToast, setShowToast] = useState(false);
@@ -203,6 +210,7 @@ export default function Result() {
   }
 
   const handleShare = async () => {
+    const shareUrl = submissionId ? roastShareUrl(submissionId) : null;
     const shareText = `${result.responseLine}\n\n— BURN (കത്തൽ) | "Come in a mood, leave worse."`;
 
     if (navigator.share) {
@@ -210,6 +218,7 @@ export default function Result() {
         await navigator.share({
           title: 'BURN',
           text: shareText,
+          url: shareUrl ?? undefined,
         });
       } catch {
         // User cancelled share
@@ -217,8 +226,9 @@ export default function Result() {
       return;
     }
 
+    const copyText = shareUrl ? `${shareText}\n\n${shareUrl}` : shareText;
     try {
-      await navigator.clipboard.writeText(shareText);
+      await navigator.clipboard.writeText(copyText);
       toastMessage.current = '✅ Copied to clipboard!';
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2000);
@@ -264,6 +274,12 @@ export default function Result() {
               {BUCKET_LABELS[result.bucket] || result.bucket}
             </div>
 
+            {source && source !== 'safety' && (
+              <span className={`result-source ${source}`}>
+                {source === 'ai' ? '⚡ AI-roasted' : '📜 From the vault'}
+              </span>
+            )}
+
             {input && (
               <blockquote className="result-echo" aria-label="Your original words">
                 <span className="result-echo-label">You said</span>
@@ -302,6 +318,16 @@ export default function Result() {
               </div>
             </div>
 
+            <section className="roast-card-section" aria-label="Shareable roast card">
+              <h2 className="roast-card-title">Your victim card</h2>
+              <RoastCard
+                text={result.responseLine}
+                bucketLabel={BUCKET_LABELS[result.bucket] || result.bucket}
+                lang={result.lang}
+                moodMeter={result.moodMeter}
+              />
+            </section>
+
             <VoicePicker />
 
             <div className="result-actions">
@@ -331,6 +357,25 @@ export default function Result() {
               >
                 📤 Share
               </button>
+
+              {submissionId && (
+                <button
+                  id="copy-link-btn"
+                  className="action-btn"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(roastShareUrl(submissionId));
+                      toastMessage.current = '🔗 Link copied!';
+                      setShowToast(true);
+                      setTimeout(() => setShowToast(false), 2000);
+                    } catch {
+                      // Clipboard unavailable
+                    }
+                  }}
+                >
+                  🔗 Copy Link
+                </button>
+              )}
 
               <button
                 id="vote-hurt-btn"

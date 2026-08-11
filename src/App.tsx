@@ -8,6 +8,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Result = lazy(() => import('./pages/Result'));
 const Feed = lazy(() => import('./pages/Feed'));
 const About = lazy(() => import('./pages/About'));
+const Roast = lazy(() => import('./pages/Roast'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -123,6 +124,7 @@ function AnimatedRoutes() {
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/roast/:id" element={<Roast />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/about" element={<About />} />
         </Routes>

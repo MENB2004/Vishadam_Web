@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { detectLanguage, type Language } from '../engine/detectLanguage';
-import { demotivate } from '../engine';
+import { generateRoast } from '../lib/roastClient';
 import {
   STT_SUPPORTED,
   createRecognizer,
@@ -142,21 +142,35 @@ export default function Home() {
     if (!trimmed || trimmed.length < 3 || isProcessing) return;
 
     setIsProcessing(true);
+    const started = Date.now();
 
-    // Small delay for dramatic effect
-    setTimeout(() => {
-      const result = demotivate(trimmed);
-      navigate('/result', { state: { result, input: trimmed } });
-    }, 800);
+    void (async () => {
+      try {
+        const { result, source } = await generateRoast(trimmed);
+        // Keep the dramatic pause even when the local engine resolves instantly.
+        const wait = Math.max(0, 800 - (Date.now() - started));
+        await new Promise(resolve => setTimeout(resolve, wait));
+        navigate('/result', { state: { result, input: trimmed, source } });
+      } finally {
+        setIsProcessing(false);
+      }
+    })();
   }, [text, navigate, isProcessing]);
 
   const handleQuickTry = useCallback((sample: string) => {
-    setText(sample);
     setIsProcessing(true);
-    setTimeout(() => {
-      const result = demotivate(sample);
-      navigate('/result', { state: { result, input: sample } });
-    }, 800);
+    const started = Date.now();
+
+    void (async () => {
+      try {
+        const { result, source } = await generateRoast(sample);
+        const wait = Math.max(0, 800 - (Date.now() - started));
+        await new Promise(resolve => setTimeout(resolve, wait));
+        navigate('/result', { state: { result, input: sample, source } });
+      } finally {
+        setIsProcessing(false);
+      }
+    })();
   }, [navigate]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {

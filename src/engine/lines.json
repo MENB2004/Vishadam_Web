@@ -75,6 +75,32 @@
       { "template": "നിങ്ങൾ സ്വപ്നം കണ്ട കല്യാണം നടന്നു. കാണാനില്ലാതിരുന്നത് സ്വന്തം സ്വപ്നത്തിലേക്കുള്ള നിങ്ങളുടെ ക്ഷണം മാത്രം.", "uses_keyword": false }
     ]
   },
+  "job-hunt": {
+    "en": [
+      { "template": "You applied to 47 jobs. 46 rejected you. The 47th didn't reply — which is technically an improvement.", "uses_keyword": false },
+      { "template": "Your {keyword} went fine until you opened your mouth. Even the silence after was disappointed.", "uses_keyword": true },
+      { "template": "They don't reject you. They read your profile, feel sorry for you, and close the listing out of kindness.", "uses_keyword": false },
+      { "template": "Your {keyword} doesn't say 'lack of experience'. It says 'please stop applying'.", "uses_keyword": true },
+      { "template": "You're not 'between opportunities'. You're between opportunities since 2019, which is a lifestyle.", "uses_keyword": false },
+      { "template": "Three rounds of interviews to hear 'we'll keep your resume on file'. The file is called the recycle bin.", "uses_keyword": false },
+      { "template": "Your {keyword} skills aren't the problem. The problem is the gap between the resume and reality.", "uses_keyword": true },
+      { "template": "You're not unemployed. You're 'independent' — HR-speak for 'nobody called back'.", "uses_keyword": false },
+      { "template": "Every rejection is a redirection, they say. At this point you're the most redirected person in the country.", "uses_keyword": false },
+      { "template": "You don't lose interviews. Interviews lose the chance to hire a future legend of mediocrity.", "uses_keyword": false },
+      { "template": "{keyword} didn't reject you. Your expectations did — they kept showing up to a place nobody wanted them.", "uses_keyword": true },
+      { "template": "Your career is like your search history: lots of effort, very little to show, nobody should see it.", "uses_keyword": false }
+    ],
+    "ml": [
+      { "template": "നിങ്ങൾ 47 ജോലികൾക്ക് അപേക്ഷിച്ചു. 46 എണ്ണം നിരസിച്ചു. 47-ാമത്തേത് മറുപടി പോലും തന്നില്ല — അത് തന്നെ പുരോഗതി.", "uses_keyword": false },
+      { "template": "ഇന്റർവ്യൂവർ നിങ്ങളെ റിജക്ട് ചെയ്യുന്നില്ല. നിങ്ങളുടെ പ്രൊഫൈൽ കണ്ടിട്ട് സഹതാപത്തോടെ ലിസ്റ്റിംഗ് അടയ്ക്കുകയാണ്.", "uses_keyword": false },
+      { "template": "{keyword} നന്നായി പോയി — വായ തുറക്കുന്നത് വരെ. അതിന് ശേഷമുള്ള നിശബ്ദത പോലും നിരാശയായിരുന്നു.", "uses_keyword": true },
+      { "template": "നിങ്ങളുടെ {keyword} ഇല് 'അനുഭവപരിചയം' എന്ന് എഴുതിയിട്ടില്ല. 'ദയവായി അപേക്ഷിക്കുന്നത് നിർത്തുക' എന്നാണ്.", "uses_keyword": true },
+      { "template": "മൂന്ന് റൗണ്ട് ഇന്റർവ്യൂ കഴിഞ്ഞ് 'റെസ്യൂം ഞങ്ങളുടെ കൈവശം സൂക്ഷിക്കാം' — റെസ്യൂം ഇതിനകം ചവറ്റുകൊട്ടയിലാണ്.", "uses_keyword": false },
+      { "template": "നിങ്ങൾ തൊഴിലില്ലാത്ത ആളല്ല. 'സ്വതന്ത്രൻ' ആണ് — HR ഭാഷയിൽ 'ആരും വിളിച്ചില്ല' എന്നർത്ഥം.", "uses_keyword": false },
+      { "template": "ഓരോ റിജക്ഷനും ഒരു വഴിതിരിവ് എന്ന് പറയുന്നു. ഇതുവരെ ഏറ്റവും കൂടുതൽ തിരിഞ്ഞ വ്യക്തി നിങ്ങളാണ്.", "uses_keyword": false },
+      { "template": "{keyword} ആണ് നിങ്ങളെ റിജക്ട് ചെയ്തത് എന്നല്ല. നിങ്ങളുടെ പ്രതീക്ഷയാണ് — ആരും ആഗ്രഹിക്കാത്ത ഇടത്ത് വരെ പ്രതീക്ഷ കാത്തുനിന്നത്.", "uses_keyword": true }
+    ]
+  },
   "work-stress": {
     "en": [
       { "template": "You're not underpaid. You're exactly worth what they pay you.", "uses_keyword": false },
@@ -222,6 +248,32 @@
       { "template": "നിങ്ങൾ black sheep അല്ല. black sheep-ന് ഒരു പേഴ്സണാലിറ്റി ഉണ്ട്. നിങ്ങൾ ആരും ശ്രദ്ധിക്കാത്ത ചാരനിറത്തിലുള്ളവനാണ്.", "uses_keyword": false }
     ]
   },
+  "health-fitness": {
+    "en": [
+      { "template": "Your gym membership is a donation to a building you visit twice a year.", "uses_keyword": false },
+      { "template": "You didn't gain weight. You invested it. Compound interest, working against you.", "uses_keyword": false },
+      { "template": "Your body isn't 'out of shape'. It's the shape you've been ignoring for years.", "uses_keyword": false },
+      { "template": "{keyword} isn't the enemy. You are — the one who promised, then ate the promise.", "uses_keyword": true },
+      { "template": "Your {keyword} plan has one rule: every meal is a cheat day.", "uses_keyword": true },
+      { "template": "You're not tired. You're a factory of excuses running on a battery of doom.", "uses_keyword": false },
+      { "template": "The doctor said 'take care of yourself'. You heard 'sometimes' and sprinted with it.", "uses_keyword": false },
+      { "template": "Your fitness tracker is more active than you. It counts your steps while you sleep.", "uses_keyword": false },
+      { "template": "You go to the {keyword} to feel better. You feel better about going — that's the whole routine.", "uses_keyword": true },
+      { "template": "Your body sent a warning. You replied 'seen' and went back to bed.", "uses_keyword": false },
+      { "template": "You don't have a health problem. You have an 'I'll start Monday' problem, and Monday is a coward.", "uses_keyword": false },
+      { "template": "Your excuses for skipping {keyword} are in better shape than you.", "uses_keyword": true }
+    ],
+    "ml": [
+      { "template": "ജിം മെംബർഷിപ്പ് വർഷത്തിൽ രണ്ട് തവണ പോകുന്ന കെട്ടിടത്തിന് നൽകുന്ന സംഭാവനയാണ്.", "uses_keyword": false },
+      { "template": "നിങ്ങൾ ശരീരഭാരം കൂട്ടിയതല്ല. നിക്ഷേപിച്ചതാണ്. കൂട്ടുപലിശ — നിങ്ങൾക്ക് എതിരായി.", "uses_keyword": false },
+      { "template": "നിങ്ങളുടെ ശരീരം 'ഷേപ്പില്ല' എന്നല്ല. വർഷങ്ങളായി നിങ്ങൾ അവഗണിച്ച ഷേപ്പാണ്.", "uses_keyword": false },
+      { "template": "{keyword} ശത്രുവല്ല. നിങ്ങൾ തന്നെയാണ് — വാഗ്ദാനം ചെയ്തിട്ട് ആ വാഗ്ദാനം തിന്നവൻ.", "uses_keyword": true },
+      { "template": "ഡയറ്റ് പ്ലാനിന് ഒരു നിയമം മാത്രം: എല്ലാ ഭക്ഷണവും cheat day.", "uses_keyword": false },
+      { "template": "നിങ്ങൾ ക്ഷീണിതനല്ല. ദുരന്തം എന്ന ബാറ്ററിയിൽ ഓടുന്ന ഒഴികഴിവുകളുടെ ഫാക്ടറിയാണ്.", "uses_keyword": false },
+      { "template": "ഫിറ്റ്നസ് ട്രാക്കർ നിങ്ങളെക്കാൾ ആക്റ്റീവാണ്. നിങ്ങൾ ഉറങ്ങുമ്പോൾ അത് സ്റ്റെപ്പ് എണ്ണുന്നു.", "uses_keyword": false },
+      { "template": "നിങ്ങൾക്ക് ആരോഗ്യ പ്രശ്നമില്ല. 'തിങ്കളാഴ്ച തുടങ്ങാം' എന്ന പ്രശ്നമാണ് — തിങ്കളാഴ്ച പേടിത്തൊണ്ടൻ.", "uses_keyword": false }
+    ]
+  },
   "money": {
     "en": [
       { "template": "You're not broke. You're a financial disaster with a savings account for decoration.", "uses_keyword": false },
@@ -256,6 +308,32 @@
       { "template": "നിങ്ങളുടെ വാലറ്റ് \"മിതവ്യയം\" പറയുന്നു. നിങ്ങളുടെ ജീവിതം \"അഡ്വാൻസ് ചോദിക്കൂ\" എന്ന് പറയുന്നു.", "uses_keyword": false },
       { "template": "പൈസയില്ലാത്തത് താൽക്കാലികം എന്ന് പറയുന്നു. നിങ്ങൾക്ക് അത് കുടുംബ ബിസിനസ്സാണ്.", "uses_keyword": false },
       { "template": "നിങ്ങൾ ഒരിക്കലും ധനികനാകില്ല. പക്ഷെ \"എന്തുകൊണ്ട് അല്ല\" എന്നതിന്റെ കാരണങ്ങളിൽ സമ്പന്നനായിരിക്കും.", "uses_keyword": false }
+    ]
+  },
+  "social-media": {
+    "en": [
+      { "template": "Your {keyword} aren't 'content'. They're a cry for help formatted as a grid.", "uses_keyword": true },
+      { "template": "You don't have a personality. You have a feed, and even that's running on vibes.", "uses_keyword": false },
+      { "template": "50 {keyword}, 3 likes, and a highlight reel of a life nobody filmed with you.", "uses_keyword": true },
+      { "template": "You post for validation. The validation left the chat and joined your ex.", "uses_keyword": false },
+      { "template": "Your screen time is higher than your income, and equally unproductive.", "uses_keyword": false },
+      { "template": "You're not addicted to your phone. Your phone is the only thing that pays you attention.", "uses_keyword": false },
+      { "template": "You curate a life for people who don't care, then feel bad when they don't care.", "uses_keyword": false },
+      { "template": "You check your {keyword} more than your health. Both are numbers trending down.", "uses_keyword": true },
+      { "template": "Your story views peaked when your life hit its lowest — finally, something consistent.", "uses_keyword": false },
+      { "template": "You follow people who inspire you. None of them follow back, for obvious reasons.", "uses_keyword": false },
+      { "template": "Your {keyword} count is proof that even algorithms underestimate you.", "uses_keyword": true },
+      { "template": "You're not 'building a brand'. You're building a shrine to people who'd swipe past you.", "uses_keyword": false }
+    ],
+    "ml": [
+      { "template": "നിങ്ങളുടെ {keyword} 'ഉള്ളടക്കം' അല്ല. ഗ്രിഡ് രൂപത്തിലുള്ള സഹായാഭ്യർത്ഥനയാണ്.", "uses_keyword": true },
+      { "template": "നിങ്ങൾക്ക് വ്യക്തിത്വമില്ല. ഒരു feed ഉണ്ട് — അതും vibes കൊണ്ട് ഓടുന്നത്.", "uses_keyword": false },
+      { "template": "50 ഫോളോവേഴ്സ്, 3 ലൈക്ക്, ആരും നിങ്ങളോടൊപ്പം ഫിലിം ചെയ്യാത്ത ജീവിതത്തിന്റെ highlight reel.", "uses_keyword": false },
+      { "template": "അംഗീകാരത്തിന് വേണ്ടി പോസ്റ്റ് ചെയ്യുന്നു. അംഗീകാരം ചാറ്റ് വിട്ട് നിങ്ങളുടെ ex-നെ പിന്തുടർന്നു.", "uses_keyword": false },
+      { "template": "സ്ക്രീൻ ടൈം വരുമാനത്തേക്കാൾ കൂടുതലാണ് — രണ്ടും ഒരുപോലെ ഉപയോഗശൂന്യം.", "uses_keyword": false },
+      { "template": "ഫോണിനോടുള്ള ആസക്തിയല്ല. ശ്രദ്ധ തരുന്ന ഒരേയൊരു കാര്യമാണ് ഫോൺ.", "uses_keyword": false },
+      { "template": "ലൈക്ക് നോക്കുന്നത് ആരോഗ്യം നോക്കുന്നതിനേക്കാൾ കൂടുതൽ. രണ്ടും താഴോട്ട് പോകുന്ന സംഖ്യകൾ.", "uses_keyword": false },
+      { "template": "നിങ്ങളെ പ്രചോദിപ്പിക്കുന്നവരെ follow ചെയ്യുന്നു. ആരും നിങ്ങളെ follow ചെയ്യുന്നില്ല — വ്യക്തമായ കാരണങ്ങളാൽ.", "uses_keyword": false }
     ]
   },
   "general": {

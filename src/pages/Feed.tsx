@@ -14,22 +14,28 @@ interface FeedEntry {
 const BUCKET_LABELS: Record<string, string> = {
   'failed-exam': '📝 Exam',
   'breakup': '💔 Breakup',
+  'job-hunt': '🔍 Job Hunt',
   'work-stress': '💼 Work',
   'nothing-works': '🌀 Nothing Works',
   'loneliness': '🫥 Loneliness',
   'family-pressure': '👨‍👩‍👧 Family',
+  'health-fitness': '💪 Health & Fitness',
   'money': '💸 Money',
+  'social-media': '📱 Social Media',
   'general': '☠️ General',
 };
 
 const BUCKET_ORDER: Bucket[] = [
   'failed-exam',
   'breakup',
+  'job-hunt',
   'work-stress',
   'nothing-works',
   'loneliness',
   'family-pressure',
+  'health-fitness',
   'money',
+  'social-media',
   'general',
 ];
 

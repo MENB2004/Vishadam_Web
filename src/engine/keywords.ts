@@ -5,12 +5,30 @@ import type { Language } from './detectLanguage';
 export type Bucket = 
   | 'failed-exam' 
   | 'breakup' 
+  | 'job-hunt'
   | 'work-stress' 
   | 'nothing-works' 
   | 'loneliness'
   | 'family-pressure'
+  | 'health-fitness'
   | 'money'
+  | 'social-media'
   | 'general';
+
+/** Ordered list of all buckets (client mirror of the server's list). */
+export const BUCKETS: readonly Bucket[] = [
+  'failed-exam',
+  'breakup',
+  'job-hunt',
+  'work-stress',
+  'nothing-works',
+  'loneliness',
+  'family-pressure',
+  'health-fitness',
+  'money',
+  'social-media',
+  'general',
+];
 
 // --- Stopwords ---
 
@@ -83,6 +101,23 @@ const BUCKET_MAP: Record<Exclude<Bucket, 'general'>, BucketKeywords> = {
       'റിലേഷൻഷിപ്പ്', 'പ്രേമം', 'വേദന', 'നഷ്ടം',
     ],
   },
+  'job-hunt': {
+    en: [
+      'interview', 'interviews', 'interviewed', 'interviewer', 'resume', 'cv',
+      'application', 'applications', 'applied', 'applicant', 'offer',
+      'rejected', 'rejection', 'hire', 'hiring', 'recruiter', 'hr',
+      'unemployed', 'unemployment', 'layoff', 'laid off', 'fired', 'fresher',
+      'shortlisted', 'selected', 'placement', 'aptitude', 'group discussion',
+      'notice period', 'package', 'ctc', 'job hunt', 'job search', 'job-search',
+      'skills', 'upskilling', 'experience certificate', 'referral', 'vacancy',
+    ],
+    ml: [
+      'ഇന്റർവ്യൂ', 'ഇന്റർവ്യു', 'ജോലി', 'റെസ്യൂം', 'അപേക്ഷ',
+      'ഓഫർ', 'റിജക്ട്', 'റിജക്ഷൻ', 'നിയമനം', 'തൊഴിൽ',
+      'പ്ലേസ്മെന്റ്', 'എച്ച്ആർ', 'ഫ്രഷർ', 'സെലക്ഷൻ', 'അപേക്ഷിച്ചു',
+      'വേക്കൻസി', 'റഫറൽ',
+    ],
+  },
   'work-stress': {
     en: [
       'work', 'boss', 'job', 'office', 'deadline', 'stress', 'stressed',
@@ -135,6 +170,24 @@ const BUCKET_MAP: Record<Exclude<Bucket, 'general'>, BucketKeywords> = {
       'സമ്മർദ്ദം', 'ബന്ധുക്കൾ', 'ചേട്ടൻ', 'ചേച്ചി',
     ],
   },
+  'health-fitness': {
+    en: [
+      'gym', 'workout', 'exercise', 'exercising', 'weight', 'diet', 'fitness',
+      'health', 'sick', 'ill', 'illness', 'disease', 'sleep', 'insomnia',
+      'tired', 'fatigue', 'energy', 'vitamins', 'checkup', 'doctor',
+      'hospital', 'medicine', 'unhealthy', 'unfit', 'body', 'protein',
+      'calories', 'steps', 'marathon', 'sports', 'cricket', 'football',
+      'injured', 'injury', 'knee', 'back pain', 'headache', 'fever', 'cough',
+      'cold', 'diabetes', 'sugar', 'cholesterol', 'blood pressure', 'bp',
+    ],
+    ml: [
+      'ജിം', 'ജിമ്മ്', 'വ്യായാമം', 'ഭാരം', 'ഡയറ്റ്', 'ആരോഗ്യം',
+      'രോഗം', 'ഉറക്കം', 'ഉറക്കമില്ലായ്മ', 'ക്ഷീണം', 'ഡോക്ടർ',
+      'ആശുപത്രി', 'മരുന്ന്', 'പനി', 'തലവേദന', 'ശരീരം',
+      'ഫിറ്റ്നസ്', 'ഓട്ടം', 'പരിക്ക്', 'ചുമ', 'ജലദോഷം',
+      'ഷുഗർ', 'കൊളസ്ട്രോൾ', 'ബിപി',
+    ],
+  },
   'money': {
     en: [
       'money', 'debt', 'broke', 'fee', 'fees', 'loan', 'emi', 'rent',
@@ -145,6 +198,21 @@ const BUCKET_MAP: Record<Exclude<Bucket, 'general'>, BucketKeywords> = {
     ml: [
       'പണം', 'കടം', 'ഫീസ്', 'വാടക', 'ശമ്പളം', 'സാമ്പത്തികം',
       'ലോൺ', 'ഇഎംഐ',
+    ],
+  },
+  'social-media': {
+    en: [
+      'instagram', 'facebook', 'whatsapp', 'twitter', 'snapchat', 'youtube',
+      'reels', 'reel', 'followers', 'following', 'likes', 'views', 'viral',
+      'meme', 'thumbnails', 'subscriber', 'subscribers', 'fomo', 'influencer',
+      'trending', 'trends', 'shorts', 'content creator', 'story views',
+      'bio', 'comparison', 'compare', 'streaks',
+    ],
+    ml: [
+      'ഇൻസ്റ്റാഗ്രാം', 'ഫേസ്ബുക്ക്', 'വാട്ട്സാപ്പ്', 'ട്വിറ്റർ',
+      'യൂട്യൂബ്', 'റീൽസ്', 'ഫോളോവേഴ്സ്', 'ലൈക്ക്', 'ലൈക്കുകൾ',
+      'വ്യൂസ്', 'വൈറൽ', 'മീം', 'ഇൻഫ്ലുവൻസർ', 'ട്രെൻഡ്',
+      'ട്രെൻഡിംഗ്', 'ഫോളോ', 'ചാനൽ', 'കമ്പാരിസൺ', 'ഷോർട്ട്സ്',
     ],
   },
 };
