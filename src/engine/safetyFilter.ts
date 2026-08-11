@@ -1,4 +1,4 @@
-// VISHADAM — NLP Engine: Safety Filter
+// BURN — NLP Engine: Safety Filter
 // Crisis detection — never mock these topics
 
 import type { Language } from './detectLanguage';

@@ -1,4 +1,4 @@
-// VISHADAM — Main App with Routing
+// BURN — Main App with Routing
 
 import { BrowserRouter, Routes, Route, NavLink, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState, lazy, Suspense } from 'react';
@@ -48,8 +48,8 @@ function AppNav() {
   return (
     <nav className="nav" id="main-nav" aria-label="Main navigation">
       <NavLink to="/" className="nav-logo" onClick={closeMenu}>
-        <span className="logo-accent">VISHADAM</span>
-        <span className="logo-ml">വിഷാദം</span>
+        <span className="logo-accent">BURN</span>
+        <span className="logo-ml">കത്തൽ</span>
       </NavLink>
 
       <button
@@ -99,7 +99,7 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>VISHADAM (വിഷാദം) — "Come in a mood, leave worse." — 0% encouragement guaranteed.</p>
+        <p>BURN (കത്തൽ) — "Come in a mood, leave worse." — 0% encouragement guaranteed.</p>
         <p className="footer-help">
           Going through something serious?{' '}
           <Link to="/about">Crisis resources are here</Link>.

@@ -1,4 +1,4 @@
-// VISHADAM — Web Speech helpers (voice input + voice output)
+// BURN — Web Speech helpers (voice input + voice output)
 // Speech-to-text and text-to-speech with English/Malayalam support.
 // Degrades gracefully when the browser or device has no matching voices.
 
@@ -84,7 +84,7 @@ export function createRecognizer(lang: SpeechLang): SpeechRecognizer | null {
 
 /* --- Text-to-Speech (output) --- */
 
-const VOICE_STORAGE_KEY = 'vishadam_voice_uri';
+const VOICE_STORAGE_KEY = 'burn_voice_uri';
 
 /** Manual voice override chosen via the voice picker (persisted). */
 export function getStoredVoiceURI(): string | null {

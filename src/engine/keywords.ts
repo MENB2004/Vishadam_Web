@@ -1,4 +1,4 @@
-// VISHADAM — NLP Engine: Keyword Extraction & Bucket Mapping
+// BURN — NLP Engine: Keyword Extraction & Bucket Mapping
 
 import type { Language } from './detectLanguage';
 

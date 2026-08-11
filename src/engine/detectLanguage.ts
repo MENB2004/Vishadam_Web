@@ -1,4 +1,4 @@
-// VISHADAM — NLP Engine: Language Detection
+// BURN — NLP Engine: Language Detection
 
 /**
  * Detects the language of input text.

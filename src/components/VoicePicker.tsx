@@ -1,4 +1,4 @@
-// VISHADAM — Voice Picker (text-to-speech voice selection)
+// BURN — Voice Picker (text-to-speech voice selection)
 // Lists every voice the browser exposes, so the user can verify a Malayalam
 // voice exists and force-select one (e.g. "Microsoft Haritha").
 

@@ -1,4 +1,4 @@
-// VISHADAM — Home Page
+// BURN — Home Page
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -192,7 +192,7 @@ export default function Home() {
           <span>0% encouragement guaranteed</span>
         </div>
         <h1 className="home-title">
-          <span className="text-gradient glitch-text" data-text="VISHADAM">VISHADAM</span>
+          <span className="text-gradient glitch-text" data-text="BURN">BURN</span>
         </h1>
         <p className="home-subtitle">"Come in a mood, leave worse."</p>
       </div>

@@ -1,4 +1,4 @@
-// VISHADAM — Result Page
+// BURN — Result Page
 
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -203,12 +203,12 @@ export default function Result() {
   }
 
   const handleShare = async () => {
-    const shareText = `${result.responseLine}\n\n— VISHADAM (വിഷാദം) | "Come in a mood, leave worse."`;
+    const shareText = `${result.responseLine}\n\n— BURN (കത്തൽ) | "Come in a mood, leave worse."`;
 
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'VISHADAM',
+          title: 'BURN',
           text: shareText,
         });
       } catch {

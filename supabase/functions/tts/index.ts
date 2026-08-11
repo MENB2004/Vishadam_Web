@@ -1,4 +1,4 @@
-// VISHADAM — Cloud TTS proxy
+// BURN — Cloud TTS proxy
 // Streams Google's female Malayalam / English voice (the same one used by
 // Google Translate) so the app can speak Malayalam without an OS-installed
 // voice pack. No API key required on the server side.

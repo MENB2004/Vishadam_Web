@@ -1,4 +1,4 @@
-// VISHADAM — NLP Engine: Main Orchestrator
+// BURN — NLP Engine: Main Orchestrator
 
 import { detectLanguage, type Language } from './detectLanguage';
 import { checkSafety } from './safetyFilter';

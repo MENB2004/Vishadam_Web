@@ -1,4 +1,4 @@
-// VISHADAM — About Page
+// BURN — About Page
 
 import Reveal from '../components/Reveal';
 
@@ -7,7 +7,7 @@ export default function About() {
     <div className="about">
       <div className="about-header">
         <h1 className="about-title">
-          About <span className="text-gradient glitch-text" data-text="VISHADAM">VISHADAM</span>
+          About <span className="text-gradient glitch-text" data-text="BURN">BURN</span>
         </h1>
         <p className="about-tagline">"Come in a mood, leave worse."</p>
       </div>
@@ -16,7 +16,7 @@ export default function About() {
         <div className="about-section">
           <h2>What is this?</h2>
         <p>
-          <strong>VISHADAM</strong> (വിഷാദം — meaning "sadness" in Malayalam) is a satirical
+          <strong>BURN</strong> (കത്തൽ — meaning "burning" in Malayalam) is a satirical
           web platform for when you're already in a bad mood and just want someone to
           make it hilariously worse.
         </p>
@@ -51,7 +51,7 @@ export default function About() {
             <strong>We promise to be mean, not cruel.</strong>
           </p>
           <p>
-            VISHADAM is satire — we mock situations, not people's worth. If you're
+            BURN is satire — we mock situations, not people's worth. If you're
             going through something genuinely serious (self-harm, abuse, crisis),
             we won't joke about it. Instead, we'll show you a kind message and
             real helpline numbers.
@@ -102,10 +102,10 @@ export default function About() {
         <div className="about-section">
           <h2>The Name</h2>
         <p>
-          <strong>വിഷാദം</strong> (VISHADAM) means "sadness" or "melancholy" in Malayalam.
+          <strong>കത്തൽ</strong> (BURN) means "burning" in Malayalam.
           We also considered: <em>Nirash (നിരാശ)</em> = despair,
-          <em> MoodKiller</em>, and <em>Mosham (മോശം)</em> = bad.
-          We went with VISHADAM because it sounds dramatic. Like your problems.
+          <em>MoodKiller</em>, and <em>Mosham (മോശം)</em> = bad.
+          We went with BURN because it sounds dramatic. Like your problems.
         </p>
         </div>
       </Reveal>

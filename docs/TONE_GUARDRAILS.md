@@ -1,4 +1,4 @@
-# VISHADAM — Tone Guardrails & Safety Policy
+# BURN — Tone Guardrails & Safety Policy
 
 ## Core Principle
 Satirical and funny — **never genuinely harmful**. We mock the *situation*, not the *person's worth*.

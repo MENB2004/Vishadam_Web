@@ -1,4 +1,4 @@
-// VISHADAM — Scroll Reveal Wrapper
+// BURN — Scroll Reveal Wrapper
 // Reveals children with a fade+slide once they enter the viewport.
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';

@@ -1,4 +1,4 @@
-// VISHADAM — NLP Engine: Line Selector
+// BURN — NLP Engine: Line Selector
 // Picks the best demotivation line for a given bucket, language, and keyword
 
 import type { Language } from './detectLanguage';
