@@ -245,8 +245,21 @@ export function stopCloudTTS(): void {
 }
 
 /**
- * Plays a demotivation line using Google's voice stream converted to a Blob URL directly from the
- * browser — guaranteeing crisp Malayalam and English voice playback across all browsers and devices.
+ * URL of the BURN `tts` edge function (Google-voice proxy), or null when no
+ * Supabase backend is configured.
+ */
+export function getTtsEndpoint(): string | null {
+  const explicit = import.meta.env.VITE_TTS_ENDPOINT as string | undefined;
+  if (explicit) return explicit;
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+  if (supabaseUrl) return `${supabaseUrl.replace(/\/+$/, '')}/functions/v1/tts`;
+  return null;
+}
+
+/**
+ * Plays a roast line using Google's free voice — Malayalam or English, no API
+ * key. Prefers the `tts` edge function (which proxies Google with the right
+ * headers), and falls back to the direct Google stream if it's unreachable.
  */
 export async function playCloudTTS(
   text: string,
@@ -254,7 +267,52 @@ export async function playCloudTTS(
   onDone?: () => void,
 ): Promise<boolean> {
   stopCloudTTS();
-  return await playGoogleStream(text.trim(), lang, onDone);
+
+  const trimmed = text.trim();
+
+  const endpoint = getTtsEndpoint();
+  if (endpoint) {
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: trimmed.slice(0, 200), lang }),
+      });
+      if (res.ok) {
+        const blob = await res.blob();
+        return await playBlobStream(blob, onDone);
+      }
+    } catch {
+      // Fall through to the direct Google stream below.
+    }
+  }
+
+  return await playGoogleStream(trimmed, lang, onDone);
+}
+
+/** Plays a buffered audio blob, keeping track of it so it can be stopped. */
+async function playBlobStream(blob: Blob, onDone?: () => void): Promise<boolean> {
+  const url = URL.createObjectURL(blob);
+  try {
+    const audio = new Audio(url);
+    const playback = { audio, url };
+    cloudPlayback = playback;
+
+    const finish = () => {
+      if (cloudPlayback === playback) cloudPlayback = null;
+      URL.revokeObjectURL(url);
+      onDone?.();
+    };
+
+    audio.onended = finish;
+    audio.onerror = finish;
+
+    await audio.play();
+    return true;
+  } catch {
+    URL.revokeObjectURL(url);
+    return false;
+  }
 }
 
 /** Plays native speech synthesis audio stream via HTML5 Audio (bypassing CORS fetch restriction). */

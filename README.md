@@ -50,7 +50,22 @@ supabase secrets set SITE_URL=https://<your-site-url>
 
 ## Voice-over
 
-The read-aloud uses Google's free voice stream directly from the browser for both Malayalam and English — no API key and no server required.
+The read-aloud uses Google's free voice for both Malayalam and English — no API key. The app prefers the `tts` edge function (a Google-voice proxy that sends the right headers), and falls back to the direct Google stream if it's unreachable.
+
+```bash
+supabase functions deploy tts --no-verify-jwt
+```
+
+The endpoint is derived from `VITE_SUPABASE_URL`, or override with `VITE_TTS_ENDPOINT`.
+
+## Database
+
+The app stores submissions and votes in `public.submissions` and `public.feedback`. Apply the schema (in `supabase/migrations`) to your project with:
+
+```bash
+supabase link --project-ref <ref>
+supabase db push --linked
+```
 
 ## Environment variables
 
@@ -60,6 +75,7 @@ The read-aloud uses Google's free voice stream directly from the browser for bot
 | `VITE_SUPABASE_ANON_KEY` | for submissions/sharing | Supabase anon key |
 | `VITE_ROAST_ENDPOINT` | no | URL of the deployed `roast` function |
 | `VITE_SITE_URL` | no | Public site URL used in OG meta tags |
+| `VITE_TTS_ENDPOINT` | no | URL of the deployed `tts` function (defaults to `VITE_SUPABASE_URL/functions/v1/tts`) |
 | `ROAST_LLM_API_KEY` | for dynamic roasts | Server secret, set via `supabase secrets set` |
 
 ---
