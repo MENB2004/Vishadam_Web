@@ -257,7 +257,7 @@ export async function playCloudTTS(
   return await playGoogleStream(text.trim(), lang, onDone);
 }
 
-/** Plays Google's native speech synthesis stream via blob URL. */
+/** Plays native speech synthesis audio stream via HTML5 Audio (bypassing CORS fetch restriction). */
 async function playGoogleStream(
   text: string,
   lang: SpeechLang,
@@ -265,30 +265,34 @@ async function playGoogleStream(
 ): Promise<boolean> {
   const targetLang = lang === 'ml' ? 'ml' : 'en';
   const encodedText = encodeURIComponent(text);
+  
+  // Google Translate TTS direct stream URL
   const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${targetLang}&client=tw-ob`;
 
   try {
-    const res = await fetch(ttsUrl);
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const blob = await res.blob();
-    const objectUrl = URL.createObjectURL(blob);
-    const audio = new Audio(objectUrl);
-    const playback = { audio, url: objectUrl };
+    const audio = new Audio();
+    // Do NOT set crossOrigin so browser treats it as a standard media playback
+    audio.src = ttsUrl;
+    
+    const playback = { audio, url: ttsUrl };
     cloudPlayback = playback;
 
     const finish = () => {
       if (cloudPlayback === playback) cloudPlayback = null;
-      URL.revokeObjectURL(objectUrl);
       onDone?.();
     };
 
     audio.onended = finish;
-    audio.onerror = finish;
+    audio.onerror = (e) => {
+      console.warn('Audio playback error:', e);
+      stopCloudTTS();
+      onDone?.();
+    };
 
     await audio.play();
     return true;
   } catch (err) {
-    console.warn('Google TTS blob playback failed:', err);
+    console.warn('Audio play failed:', err);
     stopCloudTTS();
     onDone?.();
     return false;
