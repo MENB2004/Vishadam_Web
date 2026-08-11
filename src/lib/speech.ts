@@ -186,11 +186,17 @@ export function speakText(
 ): boolean {
   if (!text.trim()) return false;
 
-  // Always check Web Speech API support first
+  // For Malayalam, always use the Blob MP3 Audio stream for guaranteed native voice
+  if (lang === 'ml') {
+    playCloudTTS(text, lang, onDone);
+    return true;
+  }
+
+  // For English, use Web Speech API with fallback
   if (TTS_SUPPORTED) {
     try {
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = ttsLang(lang); // 'ml-IN' for Malayalam, 'en-IN' for English
+      utterance.lang = 'en-IN';
       
       const voice = pickVoice(lang);
       if (voice) {
@@ -200,29 +206,28 @@ export function speakText(
       utterance.rate = 0.9;
       utterance.pitch = 1;
       utterance.onend = () => onDone?.();
-      utterance.onerror = (e) => {
-        console.warn('Local speech synthesis error:', e);
-        onDone?.();
+      utterance.onerror = () => {
+        playCloudTTS(text, lang, onDone);
       };
 
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
       return true;
-    } catch (err) {
-      console.warn('SpeechSynthesis failed:', err);
+    } catch {
+      // Fall through to cloud playback
     }
   }
 
-  // Fallback to Web Audio stream if Web Speech API fails
   playCloudTTS(text, lang, onDone);
   return true;
 }
 
 export function stopSpeech(): void {
+  stopCloudTTS();
   if (TTS_SUPPORTED) window.speechSynthesis.cancel();
 }
 
-/* --- Cloud TTS fallback (Supabase Edge Function proxy) --- */
+/* --- Cloud TTS fallback --- */
 
 let cloudPlayback: { audio: HTMLAudioElement; url: string } | null = null;
 
@@ -240,8 +245,8 @@ export function stopCloudTTS(): void {
 }
 
 /**
- * Plays a roast line using Google's free voice stream directly from the
- * browser — no API key and no server involved, for both Malayalam and English.
+ * Plays a demotivation line using Google's voice stream converted to a Blob URL directly from the
+ * browser — guaranteeing crisp Malayalam and English voice playback across all browsers and devices.
  */
 export async function playCloudTTS(
   text: string,
@@ -252,7 +257,7 @@ export async function playCloudTTS(
   return await playGoogleStream(text.trim(), lang, onDone);
 }
 
-/** Plays Google's native speech synthesis stream (free, no API key). */
+/** Plays Google's native speech synthesis stream via blob URL. */
 async function playGoogleStream(
   text: string,
   lang: SpeechLang,
@@ -263,24 +268,29 @@ async function playGoogleStream(
   const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${targetLang}&client=tw-ob`;
 
   try {
-    const audio = new Audio(ttsUrl);
-    const playback = { audio, url: ttsUrl };
+    const res = await fetch(ttsUrl);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const blob = await res.blob();
+    const objectUrl = URL.createObjectURL(blob);
+    const audio = new Audio(objectUrl);
+    const playback = { audio, url: objectUrl };
     cloudPlayback = playback;
 
     const finish = () => {
       if (cloudPlayback === playback) cloudPlayback = null;
+      URL.revokeObjectURL(objectUrl);
       onDone?.();
     };
 
     audio.onended = finish;
-    audio.onerror = () => {
-      finish();
-    };
+    audio.onerror = finish;
 
     await audio.play();
     return true;
-  } catch {
+  } catch (err) {
+    console.warn('Google TTS blob playback failed:', err);
     stopCloudTTS();
+    onDone?.();
     return false;
   }
 }
