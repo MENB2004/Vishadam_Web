@@ -355,8 +355,32 @@ export default function Result() {
                 className="action-btn"
                 onClick={handleShare}
               >
-                📤 Share
+                📤 Copy Link
               </button>
+
+              <a
+                id="share-whatsapp-btn"
+                className="action-btn whatsapp-btn"
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
+                  `${result.responseLine}\n\n— VISHADAM (വിഷാദം) | "Come in a mood, leave worse."\nhttps://brnweb.vercel.app/`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                💬 WhatsApp
+              </a>
+
+              <a
+                id="share-twitter-btn"
+                className="action-btn twitter-btn"
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  `${result.responseLine}\n\n— VISHADAM (വിഷാദം)`
+                )}&url=${encodeURIComponent('https://brnweb.vercel.app/')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                𝕏 Share
+              </a>
 
               {submissionId && (
                 <button

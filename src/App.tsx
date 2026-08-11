@@ -9,6 +9,7 @@ const Result = lazy(() => import('./pages/Result'));
 const Feed = lazy(() => import('./pages/Feed'));
 const About = lazy(() => import('./pages/About'));
 const Roast = lazy(() => import('./pages/Roast'));
+const Leaderboard = lazy(() => import('./pages/Leaderboard'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -21,6 +22,7 @@ function ScrollToTop() {
 const NAV_ITEMS = [
   { to: '/', label: 'Home', end: true },
   { to: '/feed', label: 'Live Feed', end: false },
+  { to: '/leaderboard', label: 'Wall of Despair', end: false },
   { to: '/about', label: 'About', end: false },
 ];
 
@@ -126,6 +128,7 @@ function AnimatedRoutes() {
           <Route path="/result" element={<Result />} />
           <Route path="/roast/:id" element={<Roast />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/about" element={<About />} />
         </Routes>
       </Suspense>
