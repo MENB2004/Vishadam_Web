@@ -48,20 +48,9 @@ supabase secrets set SITE_URL=https://<your-site-url>
 
 `SITE_URL` is used by `roast-page` for the "Make your own roast" link; `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are injected automatically by the Edge runtime.
 
-## Custom voice-over (ElevenLabs-ready)
+## Voice-over
 
-The `tts` edge function can speak roasts with a custom/cloned voice (e.g. a licensed clone of Wikky Thug). Without configuration it uses Google's voice, so nothing breaks by default.
-
-```bash
-supabase functions deploy tts --no-verify-jwt
-supabase secrets set TTS_ELEVENLABS_API_KEY=<key>
-supabase secrets set TTS_VOICE_ID=<voice-id>
-supabase secrets set TTS_ELEVENLABS_MODEL=eleven_multilingual_v2   # optional
-```
-
-- `TTS_VOICE_ID` must be a voice you own the rights to (e.g. a personal voice from ElevenLabs). Cloning a real person's voice requires their consent.
-- `eleven_multilingual_v2` supports Malayalam and English in one voice.
-- The client sends text through the `tts` function by default (derived from `VITE_SUPABASE_URL`, or override with `VITE_TTS_ENDPOINT`) and falls back to Google's public stream if it's unreachable.
+The read-aloud uses Google's free voice stream directly from the browser for both Malayalam and English — no API key and no server required.
 
 ## Environment variables
 
@@ -71,9 +60,7 @@ supabase secrets set TTS_ELEVENLABS_MODEL=eleven_multilingual_v2   # optional
 | `VITE_SUPABASE_ANON_KEY` | for submissions/sharing | Supabase anon key |
 | `VITE_ROAST_ENDPOINT` | no | URL of the deployed `roast` function |
 | `VITE_SITE_URL` | no | Public site URL used in OG meta tags |
-| `VITE_TTS_ENDPOINT` | no | URL of the deployed `tts` function (defaults to `VITE_SUPABASE_URL/functions/v1/tts`) |
 | `ROAST_LLM_API_KEY` | for dynamic roasts | Server secret, set via `supabase secrets set` |
-| `TTS_ELEVENLABS_API_KEY` / `TTS_VOICE_ID` | for custom voice | Server secrets, set via `supabase secrets set` |
 
 ---
 

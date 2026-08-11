@@ -239,20 +239,9 @@ export function stopCloudTTS(): void {
   }
 }
 
-/** URL of the BURN `tts` edge function, or null when not configured. */
-export function getTtsEndpoint(): string | null {
-  const explicit = import.meta.env.VITE_TTS_ENDPOINT as string | undefined;
-  if (explicit) return explicit;
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-  if (supabaseUrl) return `${supabaseUrl.replace(/\/+$/, '')}/functions/v1/tts`;
-  return null;
-}
-
 /**
- * Speaks text through the `tts` Supabase Edge Function (ElevenLabs when a
- * custom voice is configured server-side, otherwise Google's voice). Falls
- * back to Google's public translation TTS stream if the function is
- * unreachable, so the app still speaks on plain static deploys.
+ * Plays a roast line using Google's free voice stream directly from the
+ * browser — no API key and no server involved, for both Malayalam and English.
  */
 export async function playCloudTTS(
   text: string,
@@ -260,45 +249,17 @@ export async function playCloudTTS(
   onDone?: () => void,
 ): Promise<boolean> {
   stopCloudTTS();
+  return await playGoogleStream(text.trim(), lang, onDone);
+}
 
-  const trimmed = text.trim();
-
-  const endpoint = getTtsEndpoint();
-  if (endpoint) {
-    let blobUrl: string | null = null;
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: trimmed.slice(0, 200), lang }),
-      });
-      if (!res.ok) throw new Error('tts endpoint failed');
-      const blob = await res.blob();
-      blobUrl = URL.createObjectURL(blob);
-      const audio = new Audio(blobUrl);
-      const playback = { audio, url: blobUrl };
-      cloudPlayback = playback;
-
-      const finish = () => {
-        if (cloudPlayback === playback) cloudPlayback = null;
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-        onDone?.();
-      };
-
-      audio.onended = finish;
-      audio.onerror = finish;
-
-      await audio.play();
-      return true;
-    } catch {
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      // Fall through to the direct Google stream below.
-    }
-  }
-
-  // Direct public web audio TTS stream (Google's native speech synthesis).
+/** Plays Google's native speech synthesis stream (free, no API key). */
+async function playGoogleStream(
+  text: string,
+  lang: SpeechLang,
+  onDone?: () => void,
+): Promise<boolean> {
   const targetLang = lang === 'ml' ? 'ml' : 'en';
-  const encodedText = encodeURIComponent(trimmed);
+  const encodedText = encodeURIComponent(text);
   const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${targetLang}&client=tw-ob`;
 
   try {

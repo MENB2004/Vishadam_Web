@@ -133,7 +133,7 @@ export default function Result() {
 
     // Local voice: prefer a female Malayalam voice, else any matching voice.
     // If none is installed locally (e.g. no OS voice pack), fall back to the
-    // cloud proxy (ElevenLabs when configured, otherwise Google's voice).
+    // free Google cloud voice.
     const useLocal =
       speakLang === 'ml'
         ? hasFemaleVoice('ml')
