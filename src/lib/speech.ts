@@ -186,29 +186,35 @@ export function speakText(
 ): boolean {
   if (!text.trim()) return false;
 
-  const voice = pickVoice(lang);
+  // Always check Web Speech API support first
+  if (TTS_SUPPORTED) {
+    try {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = ttsLang(lang); // 'ml-IN' for Malayalam, 'en-IN' for English
+      
+      const voice = pickVoice(lang);
+      if (voice) {
+        utterance.voice = voice;
+      }
 
-  // If no local voice for language (e.g. Malayalam on Windows/iOS/Android), use Cloud Web Audio TTS
-  if (!voice) {
-    playCloudTTS(text, lang, onDone);
-    return true;
+      utterance.rate = 0.9;
+      utterance.pitch = 1;
+      utterance.onend = () => onDone?.();
+      utterance.onerror = (e) => {
+        console.warn('Local speech synthesis error:', e);
+        onDone?.();
+      };
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+      return true;
+    } catch (err) {
+      console.warn('SpeechSynthesis failed:', err);
+    }
   }
 
-  if (!TTS_SUPPORTED) return false;
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.voice = voice;
-  utterance.lang = ttsLang(lang);
-  utterance.rate = 0.95;
-  utterance.pitch = 1;
-  utterance.onend = () => onDone?.();
-  utterance.onerror = () => {
-    // If local speech synthesis fails, fall back to Cloud Web Audio TTS
-    playCloudTTS(text, lang, onDone);
-  };
-
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(utterance);
+  // Fallback to Web Audio stream if Web Speech API fails
+  playCloudTTS(text, lang, onDone);
   return true;
 }
 
