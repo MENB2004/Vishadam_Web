@@ -107,7 +107,7 @@ export default function Result() {
 
   const speakingVoiceName = isSpeaking
     ? isCloudSpeaking
-      ? 'Google Malayalam (cloud)'
+      ? 'BURN cloud voice'
       : (pickVoice(speakLang)?.name ?? 'system default')
     : null;
 
@@ -131,9 +131,9 @@ export default function Result() {
 
     const text = result.responseLine;
 
-    // Malayalam: prefer the female voice. If it's missing locally (e.g. no
-    // installed voice pack), fall back to the cloud proxy (Google's female
-    // Malayalam voice).
+    // Local voice: prefer a female Malayalam voice, else any matching voice.
+    // If none is installed locally (e.g. no OS voice pack), fall back to the
+    // cloud proxy (ElevenLabs when configured, otherwise Google's voice).
     const useLocal =
       speakLang === 'ml'
         ? hasFemaleVoice('ml')
